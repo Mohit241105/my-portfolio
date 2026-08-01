@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohit Kumar | Cybersecurity Analyst & Software Developer</title>
+    <meta name="description" content="Portfolio of Mohit Kumar - BCA Scholar, Cybersecurity & Digital Forensics Analyst, Python & C++ Developer, IoT Enthusiast.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #070a12;
+            --bg-card: rgba(13, 20, 36, 0.75);
+            --bg-card-hover: rgba(20, 31, 56, 0.85);
+            --border-color: rgba(0, 240, 255, 0.15);
+            --border-glow: rgba(0, 240, 255, 0.4);
+            
+            --accent-cyan: #00f0ff;
+            --accent-emerald: #00ff9d;
+            --accent-purple: #9d4edd;
+            --accent-gold: #ffb700;
+            --accent-red: #ff3366;
+            
+            --text-main: #f0f4f8;
+            --text-muted: #8a99ad;
+            --text-dim: #5c6b73;
+            
+            --font-main: 'Outfit', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+            
+            --shadow-glow: 0 0 25px rgba(0, 240, 255, 0.25);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            selection-background-color: var(--accent-cyan);
+            selection-color: var(--bg-dark);
+        }
+
+        /* 3D Three.js Canvas Overlay Background */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Main Container Layer */
+        .app-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(7, 10, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-code);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-emerald);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .btn-icon {
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--accent-cyan);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            background: rgba(0, 240, 255, 0.2);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), #00a8ff);
+            color: var(--bg-dark);
+            font-family: var(--font-main);
+            font-weight: 700;
+            padding: 10px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-emerald);
+            border: 1px solid var(--accent-emerald);
+            font-family: var(--font-main);
+            font-weight: 600;
+            padding: 10px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 255, 157, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 0 18px rgba(0, 255, 157, 0.4);
+        }
+
+        /* Section Layouts */
+        section {
+            padding: 120px 0 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title span.number {
+            font-family: var(--font-code);
+            color: var(--accent-cyan);
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+            max-width: 650px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 92vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            color: var(--accent-emerald);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+        }
+
+        .hero-name {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-cyan) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1.5px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--accent-emerald);
+            font-family: var(--font-code);
+            margin-bottom: 20px;
+            height: 32px;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            max-width: 580px;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            font-family: var(--font-code);
+        }
+
+        .stat-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Hero 3D Card / Profile Picture Frame */
+        .profile-card-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 24px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), var(--shadow-glow);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            transform-style: preserve-3d;
+            max-width: 380px;
+            width: 100%;
+            position: relative;
+            will-change: transform;
+            cursor: pointer;
+        }
+
+        .profile-card:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 25px 55px rgba(0, 240, 255, 0.25), 0 0 30px rgba(0, 240, 255, 0.3);
+        }
+
+        .profile-img-box {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--border-glow);
+            aspect-ratio: 1/1.1;
+            margin-bottom: 20px;
+            background: #0d1527;
+        }
+
+        .profile-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .profile-card:hover .profile-img-box img {
+            transform: scale(1.04);
+        }
+
+        .profile-hologram-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 60%, rgba(0, 240, 255, 0.25) 100%);
+            pointer-events: none;
+        }
+
+        .profile-tag {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background: rgba(7, 10, 18, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-family: var(--font-code);
+            color: var(--accent-cyan);
+        }
+
+        .profile-details h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .profile-details p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        .profile-meta-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--accent-cyan);
+            font-size: 0.78rem;
+            font-family: var(--font-code);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            backdrop-filter: blur(12px);
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-4px);
+        }
+
+        .info-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        .timeline-year {
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            color: var(--accent-emerald);
+            margin-bottom: 2px;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .timeline-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .timeline-score {
+            display: inline-block;
+            margin-top: 4px;
+            background: rgba(255, 183, 0, 0.1);
+            color: var(--accent-gold);
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Skills Matrix */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+        }
+
+        .skill-category-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-badge {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-badge:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 28px;
+            backdrop-filter: blur(16px);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px rgba(0, 240, 255, 0.15);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-date {
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            color: var(--accent-emerald);
+            margin-bottom: 8px;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tech-pill {
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            color: var(--accent-cyan);
+            font-family: var(--font-code);
+            font-size: 0.78rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Interactive Cyber Terminal */
+        .terminal-container {
+            background: #090d16;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            font-family: var(--font-code);
+        }
+
+        .terminal-header {
+            background: #0e1524;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .terminal-body {
+            padding: 20px;
+            min-height: 320px;
+            max-height: 480px;
+            overflow-y: auto;
+            color: #d1d5db;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .terminal-welcome {
+            color: var(--accent-emerald);
+            margin-bottom: 16px;
+        }
+
+        .terminal-line {
+            margin-bottom: 8px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .prompt {
+            color: var(--accent-cyan);
+            white-space: nowrap;
+        }
+
+        .terminal-input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-family: var(--font-code);
+            font-size: 0.95rem;
+            width: 100%;
+        }
+
+        /* Certificates & Achievements */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            backdrop-filter: blur(12px);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            transition: var(--transition);
+        }
+
+        .cert-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-3px);
+        }
+
+        .cert-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 240, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .cert-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .cert-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .cert-date {
+            font-family: var(--font-code);
+            font-size: 0.78rem;
+            color: var(--accent-gold);
+            margin-top: 4px;
+        }
+
+        /* Contact Section */
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(16px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .contact-icon-box {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-cyan);
+            font-size: 1.3rem;
+        }
+
+        .contact-text label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-text a, .contact-text p {
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-text a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-code);
+        }
+
+        .form-input, .form-textarea {
+            background: rgba(7, 10, 18, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-family: var(--font-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            margin-top: 80px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Modal Preview */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            max-width: 650px;
+            width: 90%;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), var(--shadow-glow);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--accent-red);
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #091322;
+            border: 1px solid var(--accent-emerald);
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .hero-badge { margin: 0 auto 20px auto; }
+            .hero-name { font-size: 3.2rem; }
+            .hero-desc { margin: 0 auto 30px auto; }
+            .hero-stats { justify-content: center; }
+            .hero-actions { justify-content: center; }
+            .profile-card-wrapper { margin-top: 20px; }
+            .about-grid { grid-template-columns: 1fr; }
+            .contact-card { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .hero-name { font-size: 2.5rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Three.js Interactive Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check" style="color: var(--accent-emerald); font-size: 1.2rem;"></i>
+        <span id="toast-message">Action completed successfully!</span>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div class="app-content">
+        
+        <!-- Header / Navigation -->
+        <header>
+            <div class="nav-container">
+                <a href="#hero" class="logo">
+                    <div class="logo-dot"></div>
+                    MOHIT.KUMAR // CYBER_DEV
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="#hero" class="active"><i class="fa-solid fa-terminal"></i> Intro</a></li>
+                    <li><a href="#about"><i class="fa-solid fa-user-shield"></i> About</a></li>
+                    <li><a href="#skills"><i class="fa-solid fa-microchip"></i> Skills</a></li>
+                    <li><a href="#projects"><i class="fa-solid fa-folder-open"></i> Projects</a></li>
+                    <li><a href="#certificates"><i class="fa-solid fa-award"></i> Certs</a></li>
+                    <li><a href="#terminal"><i class="fa-solid fa-code"></i> CLI</a></li>
+                    <li><a href="#contact"><i class="fa-solid fa-paper-plane"></i> Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="btn-icon" id="sfx-toggle" title="Toggle Cyber Audio SFX">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <a href="#contact" class="btn-primary">Hire Mohit</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-shield-halved"></i> STATUS: OPEN FOR CYBERSECURITY & TECH ROLES
+                    </div>
+                    <h1 class="hero-name">MOHIT KUMAR</h1>
+                    <div class="hero-subtitle" id="typewriter"></div>
+                    <p class="hero-desc">
+                        BCA Scholar at Lovely Professional University specializing in <strong>Digital Forensics, Steganography Detection, Python/C++ Engineering, and IoT Systems</strong>.
+                    </p>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <h3>3+</h3>
+                            <p>Core Cyber Projects</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>7.51</h3>
+                            <p>BCA CGPA (LPU)</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>4+</h3>
+                            <p>Certifications</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn-primary">
+                            <i class="fa-solid fa-compass"></i> Explore Projects
+                        </a>
+                        <a href="#terminal" class="btn-outline">
+                            <i class="fa-solid fa-terminal"></i> Open Cyber CLI
+                        </a>
+                        <button class="btn-icon" onclick="copyContact('mohitsokhal2411@gmail.com')" title="Copy Email">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3D Tilt Profile Card with Image -->
+                <div class="profile-card-wrapper">
+                    <div class="profile-card" id="profile-card">
+                        <div class="profile-img-box">
+                            <img src="mohit_profile.jpeg" alt="Mohit Kumar - Cybersecurity Analyst & Developer" id="profile-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80'">
+                            <div class="profile-hologram-overlay"></div>
+                            <div class="profile-tag">
+                                <span><i class="fa-solid fa-location-dot"></i> Rajasthan, India</span>
+                                <span><i class="fa-solid fa-graduation-cap"></i> BCA 2026</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-details">
+                            <h4>Mohit Kumar</h4>
+                            <p>Cybersecurity Analyst | Forensics | IoT</p>
+                            <div class="profile-meta-chips">
+                                <span class="chip"><i class="fa-brands fa-python"></i> Python</span>
+                                <span class="chip"><i class="fa-solid fa-code"></i> C++</span>
+                                <span class="chip"><i class="fa-solid fa-bug"></i> YARA / Volatility</span>
+                                <span class="chip"><i class="fa-brands fa-docker"></i> Docker</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About & Education Section -->
+        <section id="about">
+            <h2 class="section-title"><span class="number">01.</span> About & Education</h2>
+            <p class="section-subtitle">A quick summary of academic milestones, core specializations, and professional vision.</p>
+
+            <div class="about-grid">
+                <!-- Academic Background -->
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-graduation-cap"></i> Academic Education</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">2023 - 2026 (Present)</div>
+                            <div class="timeline-title">Bachelor of Computer Applications (BCA)</div>
+                            <div class="timeline-sub">Lovely Professional University (LPU), Jalandhar, Punjab</div>
+                            <div class="timeline-score"><i class="fa-solid fa-star"></i> 7.51 CGPA</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2022 - 2023</div>
+                            <div class="timeline-title">12th Standard (Arts)</div>
+                            <div class="timeline-sub">D.A.V Senior Secondary School, Sri Ganganagar, Rajasthan</div>
+                            <div class="timeline-score"><i class="fa-solid fa-award"></i> 79.40% Score</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2020 - 2021</div>
+                            <div class="timeline-title">10th Standard</div>
+                            <div class="timeline-sub">D.A.V Senior Secondary School, Sri Ganganagar, Rajasthan</div>
+                            <div class="timeline-score"><i class="fa-solid fa-award"></i> 84.67% Score</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Bio & Languages -->
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-user-gear"></i> Technical Profile</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.98rem; line-height: 1.7;">
+                        Passionate software developer and cybersecurity enthusiast committed to investigating digital artifacts, building automated threat analysis platforms, and engineering IoT smart devices. Deeply interested in computer forensics, steganographic detection, low-level binary analysis, and modern web application development.
+                    </p>
+
+                    <h4 style="font-size: 1.05rem; color: var(--accent-emerald); margin-bottom: 12px; font-family: var(--font-code);">
+                        <i class="fa-solid fa-language"></i> Spoken Languages
+                    </h4>
+                    <div style="display: flex; gap: 10px; margin-bottom: 24px;">
+                        <span class="chip" style="font-size: 0.9rem; padding: 6px 14px;"><i class="fa-solid fa-check"></i> English</span>
+                        <span class="chip" style="font-size: 0.9rem; padding: 6px 14px;"><i class="fa-solid fa-check"></i> Hindi</span>
+                        <span class="chip" style="font-size: 0.9rem; padding: 6px 14px;"><i class="fa-solid fa-check"></i> Punjabi</span>
+                    </div>
+
+                    <h4 style="font-size: 1.05rem; color: var(--accent-cyan); margin-bottom: 12px; font-family: var(--font-code);">
+                        <i class="fa-solid fa-id-card"></i> Contact Coordinates
+                    </h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-family: var(--font-code); font-size: 0.9rem; color: var(--text-muted);">
+                        <div><i class="fa-solid fa-envelope" style="color: var(--accent-cyan);"></i> Email: mohitsokhal2411@gmail.com</div>
+                        <div><i class="fa-solid fa-phone" style="color: var(--accent-emerald);"></i> Phone: +91-6376434135</div>
+                        <div><i class="fa-solid fa-map-location-dot" style="color: var(--accent-gold);"></i> Location: Sri Ganganagar, Rajasthan (Pin: 335901)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills Matrix -->
+        <section id="skills">
+            <h2 class="section-title"><span class="number">02.</span> Technical Skills & Tooling</h2>
+            <p class="section-subtitle">Comprehensive arsenal of programming languages, forensic suites, security tools, and databases.</p>
+
+            <div class="skills-grid">
+                <!-- Programming Languages -->
+                <div class="skill-category">
+                    <div class="skill-category-title"><i class="fa-solid fa-code"></i> Core Languages</div>
+                    <div class="skill-tags">
+                        <div class="skill-badge"><i class="fa-solid fa-c" style="color:#a8b9cc;"></i> C</div>
+                        <div class="skill-badge"><i class="fa-solid fa-code" style="color:#00599C;"></i> C++</div>
+                        <div class="skill-badge"><i class="fa-brands fa-python" style="color:#3776AB;"></i> Python</div>
+                        <div class="skill-badge"><i class="fa-brands fa-html5" style="color:#E34F26;"></i> HTML5</div>
+                        <div class="skill-badge"><i class="fa-brands fa-css3-alt" style="color:#1572B6;"></i> CSS3</div>
+                    </div>
+                </div>
+
+                <!-- Cybersecurity & Digital Forensics -->
+                <div class="skill-category">
+                    <div class="skill-category-title"><i class="fa-solid fa-user-ninja"></i> Cybersecurity & Forensics</div>
+                    <div class="skill-tags">
+                        <div class="skill-badge"><i class="fa-solid fa-terminal" style="color:var(--accent-emerald);"></i> Kali Linux</div>
+                        <div class="skill-badge"><i class="fa-solid fa-magnifying-glass-chart" style="color:var(--accent-cyan);"></i> Digital Forensics</div>
+                        <div class="skill-badge"><i class="fa-solid fa-shield-virus" style="color:var(--accent-red);"></i> YARA Rules</div>
+                        <div class="skill-badge"><i class="fa-solid fa-memory" style="color:var(--accent-gold);"></i> Volatility 3</div>
+                        <div class="skill-badge"><i class="fa-solid fa-hard-drive"></i> FTK Imager</div>
+                        <div class="skill-badge"><i class="fa-solid fa-microscope"></i> Autopsy</div>
+                        <div class="skill-badge"><i class="fa-solid fa-eye"></i> OSINT Fundamentals</div>
+                        <div class="skill-badge"><i class="fa-solid fa-key"></i> Cryptography Basics</div>
+                    </div>
+                </div>
+
+                <!-- Tools, Platforms & Hardware -->
+                <div class="skill-category">
+                    <div class="skill-category-title"><i class="fa-solid fa-cubes"></i> Platforms & Infrastructure</div>
+                    <div class="skill-tags">
+                        <div class="skill-badge"><i class="fa-brands fa-docker" style="color:#2496ED;"></i> Docker</div>
+                        <div class="skill-badge"><i class="fa-database" class="fa-solid" style="color:#00758F;"></i> MySQL</div>
+                        <div class="skill-badge"><i class="fa-brands fa-github"></i> GitHub</div>
+                        <div class="skill-badge"><i class="fa-solid fa-desktop"></i> VirtualBox</div>
+                        <div class="skill-badge"><i class="fa-solid fa-server"></i> VMware</div>
+                        <div class="skill-badge"><i class="fa-solid fa-wifi" style="color:var(--accent-emerald);"></i> NodeMCU (IoT)</div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="skill-category">
+                    <div class="skill-category-title"><i class="fa-solid fa-brain"></i> Soft Skills & Competencies</div>
+                    <div class="skill-tags">
+                        <div class="skill-badge"><i class="fa-solid fa-puzzle-piece"></i> Problem-Solving</div>
+                        <div class="skill-badge"><i class="fa-solid fa-comments"></i> Communication</div>
+                        <div class="skill-badge"><i class="fa-solid fa-bolt"></i> Quick Learner</div>
+                        <div class="skill-badge"><i class="fa-solid fa-diagram-project"></i> Project Management</div>
+                        <div class="skill-badge"><i class="fa-solid fa-arrows-spin"></i> Adaptability</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2 class="section-title"><span class="number">03.</span> Projects & Engineering</h2>
+            <p class="section-subtitle">Key software developments in forensic timeline analysis, anti-steganography detection, and IoT automation.</p>
+
+            <div class="projects-grid">
+                <!-- Project 1: ChronosTrace-Forensics -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-date"><i class="fa-solid fa-calendar"></i> Jan 2026 - Feb 2026</div>
+                        <h3 class="project-title">ChronosTrace-Forensics</h3>
+                        <p class="project-desc">
+                            Automated digital forensics, filesystem timeline analysis, and artifact investigation platform built with Flask, React, YARA, and Volatility 3 — fully containerized with Docker.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">Flask</span>
+                            <span class="tech-pill">React</span>
+                            <span class="tech-pill">YARA</span>
+                            <span class="tech-pill">Volatility 3</span>
+                            <span class="tech-pill">Docker</span>
+                        </div>
+                    </div>
+
+                    <div class="project-actions">
+                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="openProjectModal('ChronosTrace-Forensics', 'Full automated memory & timeline forensics engine analyzing system memory dumps, extracting YARA malware indicators, parsing event logs, and generating interactive forensic timelines inside isolated Docker containers.')">
+                            <i class="fa-solid fa-magnifying-glass"></i> Inspect Details
+                        </button>
+                        <a href="https://github.com/Mohit241105" target="_blank" class="btn-icon" title="View Source on GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2: Steganography Detection Tool -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-date"><i class="fa-solid fa-calendar"></i> Oct 2025 - Nov 2025</div>
+                        <h3 class="project-title">Steganography Detection Tool</h3>
+                        <p class="project-desc">
+                            An anti-steganographic analysis utility that inspects image, video, text, and audio files to detect concealed payloads and hidden covert channels using statistical steganalysis.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">Steganalysis</span>
+                            <span class="tech-pill">LSB Detection</span>
+                            <span class="tech-pill">Audio/Media Forensics</span>
+                        </div>
+                    </div>
+
+                    <div class="project-actions">
+                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="openProjectModal('Steganography Detection Tool', 'Multi-format media scanner capable of parsing Least Significant Bit (LSB) anomalies, structural file header discrepancies, frequency spectrum variations, and hidden text payloads in PNG, WAV, MP4, and TXT files.')">
+                            <i class="fa-solid fa-eye"></i> Inspect Details
+                        </button>
+                        <a href="https://github.com/Mohit241105" target="_blank" class="btn-icon" title="View Source on GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3: Smart Cloth Protection System (IoT) -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-date"><i class="fa-solid fa-calendar"></i> April 2025 - May 2025</div>
+                        <h3 class="project-title">Smart Cloth Protection (IoT)</h3>
+                        <p class="project-desc">
+                            IoT-based automated cloth protection system designed using NodeMCU, rain sensors, and LDRs to automatically shield clothes from rain and excessive sunlight via servo motor actuation with audible buzzer alerts.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">NodeMCU</span>
+                            <span class="tech-pill">Rain Sensor</span>
+                            <span class="tech-pill">LDR Light Sensor</span>
+                            <span class="tech-pill">Servo Actuator</span>
+                            <span class="tech-pill">C / C++ IoT</span>
+                        </div>
+                    </div>
+
+                    <div class="project-actions">
+                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="openProjectModal('Smart Cloth Protection System (IoT)', 'Embedded IoT solution that monitors ambient sunlight intensity via Light Dependent Resistors (LDR) and moisture via rain sensors. Triggers immediate servo movement to cover clothes rack while sounding alert buzzers during unexpected weather changes.')">
+                            <i class="fa-solid fa-gears"></i> Inspect Details
+                        </button>
+                        <a href="https://github.com/Mohit241105" target="_blank" class="btn-icon" title="View Source on GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificates & Achievements Section -->
+        <section id="certificates">
+            <h2 class="section-title"><span class="number">04.</span> Certifications</h2>
+            <p class="section-subtitle">Verified professional credentials and technical mastery courses.</p>
+
+            <h3 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--accent-cyan); font-family: var(--font-code);">
+                <i class="fa-solid fa-certificate"></i> Verified Certifications & Workshops
+            </h3>
+            
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fa-brands fa-google"></i></div>
+                    <div class="cert-info">
+                        <h4>Google Cybersecurity Professional</h4>
+                        <p>Coursera Professional Certificate</p>
+                        <div class="cert-date"><i class="fa-solid fa-calendar-check"></i> July 2026</div>
+                    </div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fa-brands fa-python"></i></div>
+                    <div class="cert-info">
+                        <h4>Google Crash Course on Python</h4>
+                        <p>Coursera Certification</p>
+                        <div class="cert-date"><i class="fa-solid fa-calendar-check"></i> July 2026</div>
+                    </div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fa-solid fa-user-secret"></i></div>
+                    <div class="cert-info">
+                        <h4>Learn Ethical Hacking from Scratch</h4>
+                        <p>Udemy Certified Course</p>
+                        <div class="cert-date"><i class="fa-solid fa-calendar-check"></i> Nov 2024</div>
+                    </div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-icon"><i class="fa-solid fa-database"></i></div>
+                    <div class="cert-info">
+                        <h4>DBMS - Fundamentals & Advanced</h4>
+                        <p>Scaler Topics Mastery Course</p>
+                        <div class="cert-date"><i class="fa-solid fa-calendar-check"></i> April 2023</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cyber Terminal Simulator Section -->
+        <section id="terminal">
+            <h2 class="section-title"><span class="number">05.</span> Interactive Cyber Terminal CLI</h2>
+            <p class="section-subtitle">Type commands like <code>help</code>, <code>whoami</code>, <code>skills</code>, <code>projects</code>, <code>education</code>, or <code>forensics</code> below.</p>
+
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                    </div>
+                    <div class="terminal-title">mohit@cyber-forensics-terminal:~ (bash)</div>
+                    <div style="color: var(--text-dim); font-size: 0.8rem;">v2.4-STABLE</div>
+                </div>
+
+                <div class="terminal-body" id="terminal-output">
+                    <div class="terminal-welcome">
+                        [+] Interactive Cyber Forensics Shell v2.4 initialized.<br>
+                        [+] Type <span style="color: var(--accent-cyan); font-weight: bold;">'help'</span> to inspect available commands.
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt">mohit@cyber-terminal:~$</span>
+                        <span>whoami</span>
+                    </div>
+                    <div style="color: #a8b9cc; margin-bottom: 12px;">
+                        Mohit Kumar | BCA Scholar @ LPU | Cybersecurity & Digital Forensics Specialist | C++, Python, Docker, IoT Developer
+                    </div>
+                </div>
+
+                <div style="padding: 12px 20px; border-top: 1px solid rgba(255,255,255,0.05); background: #080c14;">
+                    <div class="terminal-input-wrapper">
+                        <span class="prompt">mohit@cyber-terminal:~$</span>
+                        <input type="text" class="terminal-input" id="cli-input" placeholder="Type a command (e.g. help, skills, projects, clear)..." autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="section-title"><span class="number">06.</span> Get In Touch</h2>
+            <p class="section-subtitle">Looking for a cybersecurity analyst, C++/Python developer, or IoT engineer? Drop a message below!</p>
+
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h3 style="font-size: 1.4rem; color: var(--accent-cyan); margin-bottom: 10px;">Contact Coordinates</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 10px;">
+                        Feel free to reach out directly via email, phone, or LinkedIn. Direct message response within 24 hours.
+                    </p>
+
+                    <div class="contact-item">
+                        <div class="contact-icon-box"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="contact-text">
+                            <label>Direct Email</label>
+                            <a href="mailto:mohitsokhal2411@gmail.com">mohitsokhal2411@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon-box"><i class="fa-solid fa-phone"></i></div>
+                        <div class="contact-text">
+                            <label>Phone Number</label>
+                            <a href="tel:+916376434135">+91-6376434135</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon-box"><i class="fa-brands fa-linkedin"></i></div>
+                        <div class="contact-text">
+                            <label>LinkedIn Network</label>
+                            <a href="https://www.linkedin.com/in/mohitkumar241105" target="_blank">linkedin.com/in/mohitkumar241105</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon-box"><i class="fa-brands fa-github"></i></div>
+                        <div class="contact-text">
+                            <label>GitHub Repository</label>
+                            <a href="https://github.com/Mohit241105" target="_blank">github.com/Mohit241105</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Message Form -->
+                <form class="contact-form" id="contact-form" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" class="form-input" placeholder="e.g. Alex Morgan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="e.g. alex@company.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-textarea" placeholder="State your inquiry or project details..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 10px; width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-paper-plane"></i> Send Direct Message
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-socials">
+                <a href="https://github.com/Mohit241105" target="_blank" class="btn-icon"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mohitkumar241105" target="_blank" class="btn-icon"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="mailto:mohitsokhal2411@gmail.com" class="btn-icon"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2026 Mohit Kumar. Built with Three.js, HTML5 & Custom Cyber Matrix Design Engine.</p>
+            <p style="font-size: 0.8rem; font-family: var(--font-code); color: var(--text-dim); margin-top: 6px;">
+                Sri Ganganagar, Rajasthan | BCA Scholar @ LPU
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Modal Dialog -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h3 id="modal-title" style="font-size: 1.5rem; color: var(--accent-cyan); margin-bottom: 12px;">Project Breakdown</h3>
+            <p id="modal-body" style="color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; font-size: 1rem;"></p>
+            <div style="display: flex; justify-content: flex-end;">
+                <button class="btn-primary" onclick="closeModal()">Close Window</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application & Three.js 3D Engine -->
+    <script>
+        /* -------------------------------------------------------------
+           1. Web Audio API SFX Generator
+           ------------------------------------------------------------- */
+        let sfxEnabled = true;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(freq = 440, type = 'sine', duration = 0.08) {
+            if (!sfxEnabled || !audioCtx) return;
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        document.getElementById('sfx-toggle').addEventListener('click', () => {
+            sfxEnabled = !sfxEnabled;
+            const btn = document.getElementById('sfx-toggle');
+            if (sfxEnabled) {
+                btn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+                playSound(600, 'sine', 0.1);
+                showToast('Audio Cyber SFX Enabled');
+            } else {
+                btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+                showToast('Audio SFX Muted');
+            }
+        });
+
+        document.querySelectorAll('a, button, .skill-badge, .cert-card').forEach(el => {
+            el.addEventListener('mouseenter', () => playSound(520, 'sine', 0.04));
+        });
+
+        /* -------------------------------------------------------------
+           2. Dynamic Typewriter Effect for Subtitle
+           ------------------------------------------------------------- */
+        const phrases = [
+            "Cybersecurity & Digital Forensics Analyst",
+            "Python & C++ Software Developer",
+            "IoT Hardware & Automation Creator",
+            "BCA Scholar @ LPU Jalandhar"
+        ];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+
+        function typeLoop() {
+            const currentPhrase = phrases[phraseIdx];
+            if (isDeleting) {
+                typewriterEl.textContent = currentPhrase.substring(0, charIdx--);
+            } else {
+                typewriterEl.textContent = currentPhrase.substring(0, charIdx++);
+            }
+
+            let typeSpeed = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIdx === currentPhrase.length + 1) {
+                typeSpeed = 1800;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                typeSpeed = 400;
+            }
+
+            setTimeout(typeLoop, typeSpeed);
+        }
+        typeLoop();
+
+        /* -------------------------------------------------------------
+           3. 3D Tilt Card Interaction for Profile Frame
+           ------------------------------------------------------------- */
+        const profileCard = document.getElementById('profile-card');
+        if (profileCard) {
+            profileCard.addEventListener('mousemove', (e) => {
+                const rect = profileCard.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
+
+                profileCard.style.transition = 'none';
+                profileCard.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.03, 1.03, 1.03)`;
+            });
+
+            profileCard.addEventListener('mouseleave', () => {
+                profileCard.style.transition = 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease';
+                profileCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+
+            profileCard.addEventListener('mouseenter', () => {
+                profileCard.style.transition = 'transform 0.1s ease-out, box-shadow 0.3s ease';
+            });
+        }
+
+        /* -------------------------------------------------------------
+           4. Interactive Cyber CLI Terminal Simulator
+           ------------------------------------------------------------- */
+        const cliInput = document.getElementById('cli-input');
+        const terminalOutput = document.getElementById('terminal-output');
+
+        const cliCommands = {
+            'help': `Available Commands:
+  <span style="color:var(--accent-cyan)">whoami</span>     - Print Mohit's profile overview
+  <span style="color:var(--accent-cyan)">skills</span>     - View programming & forensic technical skills
+  <span style="color:var(--accent-cyan)">projects</span>   - List featured security & IoT developments
+  <span style="color:var(--accent-cyan)">education</span>  - Display academic qualifications & scores
+  <span style="color:var(--accent-cyan)">forensics</span>  - Trigger simulated memory forensics scan
+  <span style="color:var(--accent-cyan)">contact</span>    - Show email, phone & social links
+  <span style="color:var(--accent-cyan)">clear</span>      - Clear terminal screen`,
+
+            'whoami': `Mohit Kumar | Sri Ganganagar, Rajasthan
+BCA Scholar at Lovely Professional University (2023 - 2026) | CGPA: 7.51
+Specializations: Digital Forensics, Steganography Detection, Python/C++ Development, IoT Systems.`,
+
+            'skills': `TECHNICAL SKILLS ARSENAL:
+- Core Languages: C, C++, Python, HTML, CSS
+- Cybersecurity : Kali Linux, Digital Forensics, YARA Rules, Volatility 3, FTK Imager, Autopsy, OSINT, Cryptography
+- Database & Ops: MySQL, Docker, VMware, VirtualBox, GitHub
+- Soft Skills   : Problem-Solving, Communication, Project Management, Adaptability`,
+
+            'projects': `FEATURED PROJECTS UNDERTAKEN:
+1. ChronosTrace-Forensics [Jan 2026 - Feb 2026]
+   - Automated timeline analysis & artifact investigation (Flask, React, YARA, Volatility 3, Docker)
+2. Steganography Detection Tool [Oct 2025 - Nov 2025]
+   - Anti-steganographic tool detecting hidden data in image/video/audio/text
+3. Smart Cloth Protection System (IoT) [April 2025 - May 2025]
+   - Weather automated cloth protection using NodeMCU, Rain sensor, LDR & Servo`,
+
+            'education': `ACADEMIC QUALIFICATIONS:
+- BCA (LPU, Jalandhar)         : 2023 - 2026 | CGPA: 7.51
+- 12th Arts (DAV Sr. Sec School): 2022 - 2023 | 79.40%
+- 10th Standard (DAV Sr. Sec)  : 2020 - 2021 | 84.67%`,
+
+            'contact': `CONTACT COORDINATES:
+Email    : mohitsokhal2411@gmail.com
+Phone    : +91-6376434135
+LinkedIn : linkedin.com/in/mohitkumar241105
+GitHub   : github.com/Mohit241105`,
+
+            'forensics': `<span style="color:var(--accent-emerald)">[+] Initializing Memory Forensic Scanner (Volatility 3 / YARA v4.2)...</span>
+[+] Loading memory dump: <code>sample_ram_image.raw</code> (4096 MB)
+[+] Running pslist plugin... Found 142 processes.
+[+] Scanning YARA rules for suspicious indicators...
+[+] <span style="color:var(--accent-gold)">[WARNING] High entropy detected in PID 2048 (hidden_payload.exe)</span>
+[+] Timeline artifact correlation complete. Zero malicious hashes in memory space.`
+        };
+
+        cliInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = cliInput.value.trim().toLowerCase();
+                playSound(650, 'square', 0.05);
+
+                // Add prompt line
+                const line = document.createElement('div');
+                line.className = 'terminal-line';
+                line.innerHTML = `<span class="prompt">mohit@cyber-terminal:~$</span> <span>${cmd}</span>`;
+                terminalOutput.appendChild(line);
+
+                if (cmd === 'clear') {
+                    terminalOutput.innerHTML = '';
+                } else if (cliCommands[cmd]) {
+                    const res = document.createElement('div');
+                    res.style.color = '#d1d5db';
+                    res.style.marginBottom = '12px';
+                    res.style.whiteSpace = 'pre-wrap';
+                    res.innerHTML = cliCommands[cmd];
+                    terminalOutput.appendChild(res);
+                } else if (cmd !== '') {
+                    const err = document.createElement('div');
+                    err.style.color = 'var(--accent-red)';
+                    err.style.marginBottom = '12px';
+                    err.textContent = `Command not found: '${cmd}'. Type 'help' for commands.`;
+                    terminalOutput.appendChild(err);
+                }
+
+                cliInput.value = '';
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+
+        /* -------------------------------------------------------------
+           5. Modal & Toast Helpers
+           ------------------------------------------------------------- */
+        function openProjectModal(title, body) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-body').textContent = body;
+            document.getElementById('modal').classList.add('active');
+            playSound(700, 'sine', 0.1);
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            playSound(400, 'sine', 0.08);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function copyContact(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`Copied to clipboard: ${text}`);
+                playSound(800, 'sine', 0.08);
+            });
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            showToast(`Thank you ${name}! Your message has been sent to Mohit.`);
+            document.getElementById('contact-form').reset();
+            playSound(900, 'sine', 0.15);
+        }
+
+        /* -------------------------------------------------------------
+           6. THREE.JS 3D BACKGROUND ENGINE
+           ------------------------------------------------------------- */
+        function initThreeJS() {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 30);
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            // Generate circular soft glow particle texture
+            function createParticleTexture() {
+                const canvas = document.createElement('canvas');
+                canvas.width = 64;
+                canvas.height = 64;
+                const ctx = canvas.getContext('2d');
+                const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+                gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                gradient.addColorStop(0.3, 'rgba(0, 240, 255, 0.8)');
+                gradient.addColorStop(0.7, 'rgba(0, 240, 255, 0.2)');
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 64, 64);
+                const texture = new THREE.CanvasTexture(canvas);
+                return texture;
+            }
+
+            // 1. Sleek 3D Cyber Core Object
+            const coreGroup = new THREE.Group();
+            scene.add(coreGroup);
+
+            const icoGeo = new THREE.IcosahedronGeometry(7, 2);
+            const icoMat = new THREE.MeshBasicMaterial({
+                color: 0x00f0ff,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.18
+            });
+            const icoMesh = new THREE.Mesh(icoGeo, icoMat);
+            coreGroup.add(icoMesh);
+
+            const innerGeo = new THREE.IcosahedronGeometry(4, 1);
+            const innerMat = new THREE.MeshBasicMaterial({
+                color: 0x00ff9d,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+            const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+            coreGroup.add(innerMesh);
+
+            const ringGeo = new THREE.TorusGeometry(12, 0.06, 16, 100);
+            const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.2 });
+            const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+            ringMesh.rotation.x = Math.PI / 3;
+            coreGroup.add(ringMesh);
+
+            // 2. Ambient Starfield & Particles (Smooth & Non-Chaotic)
+            const particleCount = 1000;
+            const particleGeo = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            const colorCyan = new THREE.Color(0x00f0ff);
+            const colorEmerald = new THREE.Color(0x00ff9d);
+            const colorPurple = new THREE.Color(0x7000ff);
+
+            for (let i = 0; i < particleCount; i++) {
+                // Smooth volumetric distribution
+                const radius = 25 + Math.random() * 75;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos((Math.random() * 2) - 1);
+
+                positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                positions[i * 3 + 2] = radius * Math.cos(phi);
+
+                const randVal = Math.random();
+                const mixColor = randVal > 0.6 ? colorCyan : (randVal > 0.3 ? colorEmerald : colorPurple);
+                colors[i * 3] = mixColor.r;
+                colors[i * 3 + 1] = mixColor.g;
+                colors[i * 3 + 2] = mixColor.b;
+            }
+
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const particleMat = new THREE.PointsMaterial({
+                size: 0.7,
+                map: createParticleTexture(),
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.75,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particleSystem = new THREE.Points(particleGeo, particleMat);
+            scene.add(particleSystem);
+
+            // 3. Smooth Damped Camera Tracking (No Jitter)
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetCamX = 0;
+            let targetCamY = 0;
+            let targetCamYScroll = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                // Subtle normalized mouse coordinates (-1 to 1)
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+            });
+
+            window.addEventListener('scroll', () => {
+                targetCamYScroll = -window.scrollY * 0.012;
+            });
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            // Smooth Animation Loop
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Steady, elegant ambient background rotation (constant rate)
+                particleSystem.rotation.y += 0.0003;
+                particleSystem.rotation.x += 0.0001;
+
+                coreGroup.rotation.y += 0.003;
+                innerMesh.rotation.y -= 0.005;
+                ringMesh.rotation.z += 0.002;
+
+                // Ultra-smooth lerping camera position (no sharp directional jumps)
+                targetCamX += (mouseX * 2.5 - targetCamX) * 0.03;
+                targetCamY += (-mouseY * 1.8 + targetCamYScroll - targetCamY) * 0.03;
+
+                camera.position.x = targetCamX;
+                camera.position.y = targetCamY;
+                camera.lookAt(0, targetCamY, 0);
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+        }
+
+        window.addEventListener('DOMContentLoaded', initThreeJS);
+    </script>
+</body>
+</html>
