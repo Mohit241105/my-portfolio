@@ -1272,10 +1272,10 @@
                     </div>
 
                     <div class="project-actions">
-                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="openProjectModal('ChronosTrace-Forensics', 'Full automated memory & timeline forensics engine analyzing system memory dumps, extracting YARA malware indicators, parsing event logs, and generating interactive forensic timelines inside isolated Docker containers.')">
+                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="openProjectModal('ChronosTrace-Forensics', 'Full automated memory & timeline forensics engine analyzing system memory dumps, extracting YARA malware indicators, parsing event logs, and generating interactive forensic timelines inside isolated Docker containers.', 'https://github.com/Mohit241105/ChronosTrace-Forensics')">
                             <i class="fa-solid fa-magnifying-glass"></i> Inspect Details
                         </button>
-                        <a href="https://github.com/Mohit241105" target="_blank" class="btn-icon" title="View Source on GitHub">
+                        <a href="https://github.com/Mohit241105/ChronosTrace-Forensics" target="_blank" class="btn-icon" title="View Source on GitHub">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
@@ -1298,10 +1298,10 @@
                     </div>
 
                     <div class="project-actions">
-                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="openProjectModal('Steganography Detection Tool', 'Multi-format media scanner capable of parsing Least Significant Bit (LSB) anomalies, structural file header discrepancies, frequency spectrum variations, and hidden text payloads in PNG, WAV, MP4, and TXT files.')">
+                        <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="openProjectModal('Steganography Detection Tool', 'Multi-format media scanner capable of parsing Least Significant Bit (LSB) anomalies, structural file header discrepancies, frequency spectrum variations, and hidden text payloads in PNG, WAV, MP4, and TXT files.', 'https://github.com/Mohit241105/StegDetection_Tool')">
                             <i class="fa-solid fa-eye"></i> Inspect Details
                         </button>
-                        <a href="https://github.com/Mohit241105" target="_blank" class="btn-icon" title="View Source on GitHub">
+                        <a href="https://github.com/Mohit241105/StegDetection_Tool" target="_blank" class="btn-icon" title="View Source on GitHub">
                             <i class="fa-brands fa-github"></i>
                         </a>
                     </div>
@@ -1658,8 +1658,10 @@ Specializations: Digital Forensics, Steganography Detection, Python/C++ Developm
             'projects': `FEATURED PROJECTS UNDERTAKEN:
 1. ChronosTrace-Forensics [Jan 2026 - Feb 2026]
    - Automated timeline analysis & artifact investigation (Flask, React, YARA, Volatility 3, Docker)
+   - Link: https://github.com/Mohit241105/ChronosTrace-Forensics
 2. Steganography Detection Tool [Oct 2025 - Nov 2025]
    - Anti-steganographic tool detecting hidden data in image/video/audio/text
+   - Link: https://github.com/Mohit241105/StegDetection_Tool
 3. Smart Cloth Protection System (IoT) [April 2025 - May 2025]
    - Weather automated cloth protection using NodeMCU, Rain sensor, LDR & Servo`,
 
@@ -1718,9 +1720,17 @@ GitHub   : github.com/Mohit241105`,
         /* -------------------------------------------------------------
            5. Modal & Toast Helpers
            ------------------------------------------------------------- */
-        function openProjectModal(title, body) {
+        function openProjectModal(title, body, repoUrl) {
             document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-body').textContent = body;
+            let contentHtml = `<p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; font-size: 1rem;">${body}</p>`;
+            if (repoUrl) {
+                contentHtml += `<div style="margin-bottom: 20px;">
+                    <a href="${repoUrl}" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                        <i class="fa-brands fa-github"></i> Open Repository on GitHub
+                    </a>
+                </div>`;
+            }
+            document.getElementById('modal-body').innerHTML = contentHtml;
             document.getElementById('modal').classList.add('active');
             playSound(700, 'sine', 0.1);
         }
